@@ -14,7 +14,8 @@
 # Circuit Diagram:
 
 ---
-To upload
+<img width="1027" height="789" alt="image" src="https://github.com/user-attachments/assets/b4044e56-d618-4768-a22c-b610ab746e0f" />
+
 --
 
 # Procedure // Modify the procedure based on your circuit
