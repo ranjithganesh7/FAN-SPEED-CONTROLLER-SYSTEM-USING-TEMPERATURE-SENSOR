@@ -14,7 +14,7 @@
 # Circuit Diagram:
 
 ---
-<img width="1027" height="789" alt="image" src="https://github.com/user-attachments/assets/b4044e56-d618-4768-a22c-b610ab746e0f" />
+<img width="1169" height="726" alt="image" src="https://github.com/user-attachments/assets/cdd2e60d-895a-457e-ba40-b4756e7d77c9" />
 
 --
 
@@ -59,64 +59,91 @@ Step 7: Save Your Work
 # Program
 
 ---
-#include <LiquidCrystal.h>
-
-// LCD pin setup: RS, E, D4, D5, D6, D7
-LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
-
-int sensorPin = A0;
-int motorPin = 9;
-int sensorValue;
-float voltage, temperatureC;
-int fanSpeed;
-
-void setup() {
-  Serial.begin(9600);
-  lcd.begin(16, 2);   // Initialize LCD (16x2)
-  pinMode(motorPin, OUTPUT);
-}
-
-void loop() {
-  // Read temperature sensor
-  sensorValue = analogRead(sensorPin);
-  voltage = sensorValue * (5.0 / 1023.0);
-  temperatureC = (voltage - 0.5) * 100.0;
-
-  // Control fan speed
-  if (temperatureC < 25) {
-    fanSpeed = 0;
-  } else if (temperatureC > 40) {
-    fanSpeed = 255;
-  } else {
-    fanSpeed = map(temperatureC, 25, 40, 50, 255);
-  }
-
-  analogWrite(motorPin, fanSpeed);
-
-  // Print to Serial Monitor
-  Serial.print("Temp: ");
-  Serial.print(temperatureC);
-  Serial.print(" °C | Fan Speed: ");
-  Serial.println(fanSpeed);
-
-  // Print to LCD
-  lcd.setCursor(0, 0);
-  lcd.print("Temp: ");
-  lcd.print(temperatureC);
-  lcd.print("C   ");
-
-  lcd.setCursor(0, 1);
-  lcd.print("Fan: ");
-  lcd.print(fanSpeed);
-  lcd.print("   ");
-
-  delay(500);
-}
-
+	#include<LiquidCrystal.h>
+	LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
+	int tempPin = A0;// connect Sensor output pin
+	int temp;
+	#define pwm 9
+	
+	void setup()
+	{
+	 lcd.begin(16, 2);
+	  lcd.clear();
+	 lcd.print("   Fan Speed  ");
+	 lcd.setCursor(0,1);
+	 lcd.print("  Controlling ");
+	 delay(2000);
+	 analogWrite(pwm, 255);
+	 lcd.clear();
+	 lcd.print("GROUP NO 1 ");
+	 delay(2000);
+	}
+	void loop()
+	{
+	  temp = readTemp();     // read temperature
+	  lcd.setCursor(0,0);
+	  lcd.print("Temperature :");
+	  lcd.print(temp);   // Printing temperature on LCD
+	  
+	  lcd.print("oC");
+	  lcd.setCursor(0,1);
+	  if(temp <20 )
+	    { 
+	      analogWrite(9,0);
+	      lcd.print("Fan OFF ");
+	      delay(100);
+	    }
+    
+    else if(temp==24)
+    {
+      analogWrite(pwm, 75);
+      lcd.print("Fan Speed: 20%   ");
+      delay(100);
+    }
+    
+     else if(temp==27)
+    {
+      analogWrite(pwm, 102);
+      lcd.print("Fan Speed: 40%   ");
+      delay(100);
+    }
+    
+     else if(temp==30)
+    {
+      analogWrite(pwm, 153);
+      lcd.print("Fan Speed: 60%   ");
+      delay(100);
+    }
+    
+    else if(temp==34)
+    {
+      analogWrite(pwm, 204);
+      lcd.print("Fan Speed: 80%    ");
+      delay(100);
+    }
+     else if(temp>40)
+    {
+      analogWrite(pwm, 255);
+      lcd.print("Fan Speed: 100%   ");
+      delay(100);
+    } 
+	  delay(3000);
+	}
+	
+	int readTemp() {  // get temperature and convert it to celsius
+	  temp = analogRead(tempPin);
+	  return temp * 0.48828125;
+	}
 --
+# output
+
+
+https://github.com/user-attachments/assets/5c78739b-dbb9-4e67-8622-533f2a08ae50
+
+
 
 # Result
 
 ---
-The temperature and humidity values are measured using DHT11/DHT22/TMP36 sensor with Arduino UNO Board/ESP-32 and Simulated using Tinker CAD.
+	Thus,the Temperature using DHT11/DHT22/TMP36 sensor with Arduino UNO Board/ESP-32 using Tinker CAD are verified.
 --
