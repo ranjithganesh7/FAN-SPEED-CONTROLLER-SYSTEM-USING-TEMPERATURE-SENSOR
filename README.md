@@ -143,5 +143,4 @@ https://github.com/user-attachments/assets/5c78739b-dbb9-4e67-8622-533f2a08ae50
 
 
 # Result
-
-	Thus,the Temperature using DHT11/DHT22/TMP36 sensor with Arduino UNO Board/ESP-32 using Tinker CAD are verified.
+Thus,the Temperature using DHT11/DHT22/TMP36 sensor with Arduino UNO Board/ESP-32 using Tinker CAD are verified.
